@@ -1,0 +1,98 @@
+.header .container {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "logo mobile";
+    grid-template-rows: auto 1fr 1fr 1fr;
+}
+
+.header .container .hide {
+    display: none;
+}
+
+@media screen and (min-width: 1200px) {
+    .header .container {
+        grid-template-columns: auto 1fr auto auto;
+        grid-template-areas: "logo menu switch buttons";
+        width: auto;
+        height: auto;
+    }
+}
+
+.header #logo {
+    grid-area: logo;
+    grid-row: 1;
+    padding-right: 50px;
+}
+
+.header #menu {
+    grid-area: menu;
+    align-items: center;
+    grid-row: 2;
+}
+
+.header #menu nav {
+    justify-content: center;
+    display: grid;
+    gap: 30px;
+}
+
+@media screen and (min-width: 1200px) {
+    .header #menu {
+        display: flex;
+        grid-row: 1;
+    }
+
+    .header #menu nav {
+        display: flex;
+        gap: 0px;
+    }
+
+    .header #menu .menuLink {
+        padding: 15px;
+    }
+}
+
+.header .btnswitch {
+    grid-area: switch;
+    display: none;
+}
+
+@media screen and (min-width: 1200px) {
+    .header .btnswitch {
+        margin: 20px;
+        display: flex;
+        grid-row: 1;
+    }
+}
+
+.header #accountButtons {
+    align-items: center;
+    grid-area: buttons;
+    grid-row: 3;
+    gap: 15px;
+}
+
+
+@media screen and (min-width: 1200px) {
+    .header #accountButtons {
+        display: flex;
+        grid-row: 1;
+    }
+}
+
+.header .btnmobilemenu {
+    grid-area: mobile;
+    grid-row: 1;
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+}
+
+@media screen and (min-width: 1200px) {
+    .header .btnmobilemenu {
+        display: none;
+    }
+}

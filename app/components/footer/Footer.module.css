@@ -1,0 +1,15 @@
+.container {
+    text-align: center;
+}
+
+.socialmedia {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+.p{
+    text-align: center;
+    align-items: center;
+}
