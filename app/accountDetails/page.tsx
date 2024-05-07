@@ -52,7 +52,7 @@ export default function Home() {
         <div className="container">
             <section id="account-details">
               
-                <AccountAside {}/>
+                {/* <AccountAside {}/> */}
                 <form onSubmit={handleSubmit}>
                     <div>
                         <label htmlFor="firstName">First Name</label>
