@@ -12,7 +12,7 @@ export default function Header() {
                     <nav>
                         <a href="/#overview" className={`menuLink ${Style.menuLink}`}>Overview</a>
                         <a href="/#features" className={`menuLink ${Style.menuLink}`}>Features</a>
-                        <a href="/Courses" className={`menuLink ${Style.menuLink}`}>Courses</a>
+                        <a href="/courses" className={`menuLink ${Style.menuLink}`}>Courses</a>
                         <a href="/contact" className={`menuLink ${Style.menuLink}`}>Contact</a>
                     </nav>
                 </div>

@@ -1,8 +1,33 @@
-import React from 'react';
 import { Course } from '../interfaces/coursesTypes';
 export default function Courses() {
 
-    const courses:Course[] = []
+    const courses:Course[] = [
+        {
+            id: 'fasdqw2324324',
+            title: "Introduction to JavaScript",
+            author: "Jane Doe",
+            image: "javascript-course.jpg",
+            originalPrice: "$199",
+            discountPrice: "$99",
+            isDigital: true,
+            isBestseller: true,
+            hours: 20,
+            likesInProcent: '93',
+            numberOfLikes: '430'
+        },{
+            id: 'fasdqw2324324',
+            title: "Introduction to JavaScript",
+            author: "Jane Doe",
+            image: "javascript-course.jpg",
+            originalPrice: "$199",
+            discountPrice: "$99",
+            isBestseller: true,
+            isDigital: true,
+            hours: 20,
+            likesInProcent: '93',
+            numberOfLikes: '430'
+        }
+    ]
     return (
         <section id="courses">
             <div className="container">
@@ -38,7 +63,6 @@ export default function Courses() {
                         ))
                     ) : (
                         <>
-                            <div><h1 className="d6">Courses</h1></div>
                             <h2>No courses found</h2>
                         </>
                     )}
