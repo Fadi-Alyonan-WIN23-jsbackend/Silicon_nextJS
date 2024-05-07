@@ -1,0 +1,43 @@
+.aside {
+    border-right: 1px solid var(--gray-300);
+    padding-right: 20px;
+    text-align: center;
+}
+
+.profileInfo {
+    margin: 20px;
+}
+
+.profileInfo h5 {
+    margin-top: 15px;
+    margin-bottom: 0;
+}
+
+.profileInfo p {
+    font-size: 16px; 
+    color: #666;
+}
+
+.asideNav {
+    margin-top: 50px;
+    text-align: left;
+}
+
+.asideNav a {
+    display: flex;
+    margin: 10px 0;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+}
+
+.btnThemeS {
+    text-align: left;
+    justify-content: center;
+}
+
+@media (max-width: 992px) {
+    .aside {
+        display: none;
+    }
+}
