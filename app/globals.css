@@ -389,7 +389,7 @@ form span.field-validation-error {
   top: 0;
   right: 0;
   color: var(--danger);
-  font-size: 16px;
+  font-size: 16pxupdated;
 }
 
 form label {
