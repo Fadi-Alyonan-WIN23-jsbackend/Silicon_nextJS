@@ -2,7 +2,6 @@ import { BasicInfo } from "@/app/interfaces/accountTyps";
 import styles from './AccountAside.module.css';
 
 export default function AccountAside(basic:BasicInfo) {
-    
     return (
         <aside className={styles.aside}>
         <div className={`${styles.profileInfo} profileInfo`}>
