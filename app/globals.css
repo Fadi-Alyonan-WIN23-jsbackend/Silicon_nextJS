@@ -384,7 +384,7 @@ form .checkbox-group label {
   font-weight: 400;
 }
 
-form span.field-validation-error {
+form span.error-message {
   position: static;
   top: 0;
   right: 0;
