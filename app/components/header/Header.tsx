@@ -28,7 +28,7 @@ export default function Header() {
 
                 <div id={Style.accountButtons}>
                     <div className={Style.div}>
-                        <a href="/account/details" className="btn-theme"><i className="btn-icon fa-regular fa-user"></i><span>My account</span></a>
+                        <a href="/accountDetails" className="btn-theme"><i className="btn-icon fa-regular fa-user"></i><span>My account</span></a>
                     </div>
                 </div>
                 <button  id="mobilemenu" className={`btn-mobilemenu ${Style.btnmobilemenu}`}>

@@ -357,13 +357,88 @@ footer {
 .btn-icon{
   margin-right: 10px;
 }
-form {
-  width: 100%;
+
+
+
+/* account aside css */
+ 
+#account-details {
   display: grid;
+  grid-template-columns: 2fr 5fr;
+  gap: 150px;
+  margin-top: 50px;
+  margin-bottom: 70px;
+  z-index: 1;
+}
+
+#account-details aside {
+  border-right: 1px solid var(--gray-300);
+  padding-right: 20px;
+  text-align: center;
+}
+
+#account-details aside .profile.info {
+  margin: 20px;
+}
+
+#account-details aside .profile.info h5 {
+  margin-top: 15px;
+  margin-bottom: 0;
+}
+
+#account-details aside .profile.info p {
+  font-size: 16px;
+}
+
+#account-details aside nav {
+  margin-top: 50px;
+  text-align: left;
+}
+
+#account-details aside nav a {
+  margin: 10px 0;
+  text-align: left;
+  justify-content: center;
+}
+
+#account-details aside nav .btn.theme-s {
+  text-align: left;
+  justify-content: center;
+}
+
+@media(max-width:992px) {
+  #account-details aside {
+      display: none;
+  }
+}
+
+
+
+
+/* account details css */
+
+.account-details-forms {
+  display: flex;
+  flex-direction: column;
+}
+
+.account-titles {
+  display: flex;
+  flex-direction: column;
+}
+
+form{
+  margin-top: 100px;
+  width: 80%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:"account-title subtitle" "first last" "email phone" "bio bio";
+  column-gap: 50px;
+
 }
 
 form .input-group {
-  display: grid;
+display: grid;
 }
 
 form .checkbox-group {
@@ -395,12 +470,44 @@ form span.field-validation-error {
 form label {
   margin-bottom: 0.188rem;
   font-weight: 700;
+  display: flex;
+  flex-direction: column;
 }
 
 form input {
   padding: 1rem;
   border-radius: 0.5rem !important;
   border: 0.063rem solid var(--gray-400);
+  width: 410px;
+  height: 50px;
+}
+.account-title {
+  grid-area: account-title;
+}
+
+.subtitle{
+ grid-area: subtitle; 
+ color: #6366F1;
+}
+
+.first {
+  grid-area: first;
+}
+
+.last {
+ grid-area: last;
+}
+
+.email {
+  grid-area: email;
+}
+
+.phone {
+  grid-area: phone;
+}
+
+.bio {
+ grid-area: bio;
 }
 
 form input::placeholder {
@@ -417,13 +524,65 @@ form input.input-validation-error::placeholder {
 }
 
 form textarea {
+  
   padding: 1rem;
   border-radius: 0.5rem !important;
   border: 0.063rem solid var(--gray-400);
   resize: none;
+  height: 100px;
+  width: 870px;
+  
 }
 
 form textarea::placeholder {
   opacity: 0.4;
 }
+
+.address-info {
+  color: #6366F1;
+}
+
+.second-form {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "first-address first-address" "second-address second-address" "postal city";
+  row-gap: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+.first-address {
+  grid-area: first-address;
+}
+
+.second-address {
+  grid-area: second-address;
+}
+
+.postal {
+  grid-area: postal;
+}
+
+.city {
+  grid-area: city;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+#cancel {
+  grid-area: cancel;
+  width: 100px;
+  height: 50px;
+}
+
+form .btn-theme-s {
+  width: 150px;
+  height: 50px;
+}
+
+
 
