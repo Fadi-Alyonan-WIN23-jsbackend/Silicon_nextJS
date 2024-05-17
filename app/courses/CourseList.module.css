@@ -1,0 +1,91 @@
+
+
+.courseItems {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    column-gap: 20px;
+    row-gap: 50px;
+}
+
+.course {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    position: relative;
+}
+
+.course:hover {
+    text-decoration: none;
+    background-color: #e2e2e2;
+}
+
+.bestSeller {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: #28a745;
+    color: white;
+    display: inline-block;
+    padding: 0 10px 0 10px;
+    border-radius: 4px;
+}
+
+.courseImage {
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.content {
+    padding-left: 10px;
+}
+
+.courseTitle {
+    padding-right: 60px;
+    margin: 10px 0 10px 10px;
+    font-weight: 600;
+}
+
+.courseAuthor {
+    margin: 5px 0 10px 10px;
+}
+
+.coursePrice {
+    display: flex;
+    margin: 5px 0 10px 10px;
+    color: var(--theme);
+    font-weight: 600;
+}
+
+.discountPrice {
+    color: #dc3545;
+    margin-right: 10px;
+}
+
+.originalPrice {
+    color: #737373;
+}
+
+.lineThrough {
+    text-decoration: line-through;
+    color: var(--gray-600);
+    font-weight: 300;
+}
+
+.courseHr {
+    margin-left: 10px;
+    width: 92%;
+}
+
+.courseFooter {
+    display: flex;
+    color: #737373;
+    margin-bottom: 20px;
+}
+
+.courseHours {
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+
