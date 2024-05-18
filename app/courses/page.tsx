@@ -1,7 +1,7 @@
 import React from 'react';
-import { Course } from '../interfaces/coursesTypes';
 import CourseList from './CourseList';
 import style from './CourseList.module.css';
+import { Course } from '../interfaces/coursesTypes';
 
 async function fetchCourses(): Promise<Course[]> {
   const query = `
@@ -42,6 +42,8 @@ async function fetchCourses(): Promise<Course[]> {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+      'Pragma': 'no-cache',
     },
     body: JSON.stringify({ query }),
   });
@@ -55,11 +57,14 @@ async function fetchCourses(): Promise<Course[]> {
     throw new Error(`GraphQL error: ${json.errors.map((err: any) => err.message).join(', ')}`);
   }
 
+  console.log('Fetched courses:', json.data.getCourses); // Logga de hämtade kurserna för att verifiera
+
   return json.data.getCourses;
 }
 
 const CoursesPage = async () => {
   const courses = await fetchCourses();
+  console.log('Courses in CoursesPage:', courses); // Logga de kurser som skickas till CourseList
 
   return (
     <main className={style.main}>
