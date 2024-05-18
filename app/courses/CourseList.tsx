@@ -1,50 +1,12 @@
-"use client";
-
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Course } from '../interfaces/coursesTypes';
-import style from './CourseList.module.css'
+import style from './CourseList.module.css';
 
-async function fetchCourses(): Promise<Course[]> {
-  const res = await fetch('');
-  if (!res.ok) {
-    throw new Error('Could not fetch courses from CourseProvider');
-  }
-  return res.json();
+interface CourseListProps {
+  courses: Course[];
 }
 
-const CourseList: React.FC = () => {
-  const [courses, setCourses] = useState<Course[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const getCourses = async () => {
-      try {
-        const courses = await fetchCourses();
-        console.log('Fetched courses:', courses);
-        setCourses(courses);
-      } catch (err) {
-        if (err instanceof Error) {
-          setError(err.message);
-        } else {
-          setError('An unknown error occurred');
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    getCourses();
-  }, []);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
+const CourseList: React.FC<CourseListProps> = ({ courses }) => {
   return (
     <section id={style.courses}>
       <div className={`container ${style.container}`}>
@@ -54,28 +16,28 @@ const CourseList: React.FC = () => {
         <div className={`courseItems ${style.courseItems}`}>
           {courses && courses.length > 0 ? (
             courses.map((item) => (
-              <div key={item.Id} className={`course ${style.course}`}>
-                {item.IsBestseller && <div className={`bestSeller text-s ${style.bestSeller}`}>Best Seller</div>}
-                <img className={`courseImage ${style.courseImage}`} src={`/images/${item.Image}`} alt={item.Image} />
+              <div key={item.id} className={`course ${style.course}`}>
+                {item.isBestSeller && <div className={`bestSeller text-s ${style.bestSeller}`}>Best Seller</div>}
+                <img className={`courseImage ${style.courseImage}`} src={`/images/${item.imageUri}`} alt={item.title} />
                 <div className={style.content}>
-                  <div><h5 className={`courseTitle ${style.courseTitle}`}>{item.Title}</h5></div>
-                  <div className={`courseAuthor text-s ${style.courseAuthor}`}>{item.Author}</div>
+                  <div><h5 className={`courseTitle ${style.courseTitle}`}>{item.title}</h5></div>
+                  <div className={`courseAuthor text-s ${style.courseAuthor}`}>{item.author}</div>
                   <div className={`coursePrice ${style.coursePrice}`}>
-                    {item.DiscountPrice && item.DiscountPrice !== "0" ? (
+                    {item.prices.discount && item.prices.discount !== 0 ? (
                       <>
-                        <div className={`discountPrice ${style.discountPrice}`}>{item.DiscountPrice}</div>
-                        <div className={`originalPrice ${style.lineThrough}`}>{item.OriginalPrice}</div>
+                        <div className={`discountPrice ${style.discountPrice}`}>{item.prices.discount}</div>
+                        <div className={`originalPrice ${style.lineThrough}`}>{item.prices.price}</div>
                       </>
                     ) : (
-                      <div>{item.OriginalPrice}</div>
+                      <div>{item.prices.price}</div>
                     )}
                   </div>
                   <hr className={style.courseHr} />
                   <div className={`courseFooter ${style.courseFooter}`}>
-                    <div className={`courseHours ${style.courseHours}`}><i className="fa-regular fa-clock"></i> {item.Hours} hours</div>
+                    <div className={`courseHours ${style.courseHours}`}><i className="fa-regular fa-clock"></i> {item.hours} hours</div>
                     <div className="course-likes">
                       <i className="fa-regular fa-thumbs-up"></i>
-                      {`${item.LikesInProcent}% (${item.NumberOfLikes})`}
+                      {`${item.likesInPercent}% (${item.likes})`}
                     </div>
                   </div>
                 </div>
