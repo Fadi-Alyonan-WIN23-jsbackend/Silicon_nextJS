@@ -1,8 +1,18 @@
-import { BasicInfo } from "@/app/interfaces/accountTyps";
 import { Props } from "@/app/interfaces/accountTyps";
+import { cookies } from "next/headers";
+import { useEffect } from "react";
+
 
 
 export default function AccountAside({ basic, address, errorMessage }: Props) {
+    const signOut = () => {
+        document.cookie = 'Authorization=; Max-Age=0; path=/; samesite=strict';
+        window.location.href = '/Auth/signIn';
+    };
+
+    useEffect(() => {
+        document.cookie = `Authorization=test; path=/; secure; samesite=strict; max-age=${24 * 60 * 60}`;
+    }, []);
     return (
         <aside className="aside">
             <div className="profileinfo">
@@ -12,8 +22,10 @@ export default function AccountAside({ basic, address, errorMessage }: Props) {
                 <p className="profileinfo-p">{basic.PhoneNumber}</p>
             </div>
             <nav className="asideNav">
-                <a className="btn-theme-s" href="/accountDetails"><i className="fa-regular fa-right-from-bracket"></i>Account Details</a>
-                <a className="btn-transparent" href="/Auth/SignOut"><i className="fa-regular fa-right-to-bracket"></i>Sign Out</a>
+                <a className="btn-transparent aktive" href="/accountDetails"><i className="fa-regular fa-right-from-bracket"></i>Account Details</a>
+                <a className="btn-transparent" href="/accountNotification"><i className="fa-regular fa-right-to-bracket"></i>Notification</a>
+                <a className="btn-transparent" onClick={signOut}><i className="fa-regular fa-right-to-bracket"></i>Sign Out</a>
+
             </nav>
         </aside>
     );
