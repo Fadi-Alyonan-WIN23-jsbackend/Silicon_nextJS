@@ -1,3 +1,6 @@
+.singleCourseHeader {
+    /* Din befintliga stil */
+}
 
 .headerImageContainer {
     width: 100%; 
@@ -12,7 +15,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden; /* Döljer det överskjutande innehållet */
+    overflow: hidden;
 }
 
 .imageWrapper::after {
@@ -69,7 +72,7 @@
 }
 
 .imageHeaderTitleContainer .courseIsBestSeller {
-    top: 0; 
+    top: -5px; 
     background-color: var(--success);
     display: inline-block;
     border-radius: 5px;
@@ -79,7 +82,7 @@
 }
 
 .imageHeaderTitleContainer .courseIsDigital {
-    top: 0; 
+    top: -5px;
     left: 5px;
     background-color: var(--gray-200);
     display: inline-block;
@@ -127,4 +130,102 @@
     font-size: 1em;
     margin-right: 2px;
     color: lightgrey;
+}
+
+.coursePage {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    width: 1140px;
+    max-width: 100%;
+    margin: 0 auto;
+    margin-top: 50px;
+    padding: 20px 0;
+    column-gap: 130px;
+}
+
+.courseDescription {
+    
+}
+
+.courseDescription h1 {
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.courseDescription p {
+    margin-bottom: 50px;
+    padding: 0 60px 0 0;
+}
+
+.whatYoullLearnTitle {
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.whatYoullLearnPoints {
+    display: flex; 
+}
+
+.whatYoullLearnPoints i {
+    color: var(--theme); 
+}
+
+.whatYoullLearnPoints p {
+    margin-left: 5px;
+    margin-top: 1px;
+    line-height: 0.8;
+}
+
+.programDetails {
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.programDetails h1 {
+    font-weight: 600;
+    margin-top: 70px;
+    margin-bottom: 40px;
+}
+
+.programDetails ol {
+    padding-left: 20px;
+    counter-reset: li; /* Initialisera räknaren */
+}
+
+.programDetails li {
+    list-style: none; /* Ta bort standardpricken */
+    margin-bottom: 20px;
+    position: relative;
+    padding-left: 40px;
+    counter-increment: li; /* Öka räknaren för varje li */
+}
+
+.programDetails li::before {
+    content: counter(li); /* Använd räknaren */
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: white; /* Vit cirkel */
+    border: 5px solid #E6E6FA; /* Ljuslila ring */
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.programDetailsItems {
+    margin-left: 40px;
+}
+
+.programDetailsItems h4 {
+    font-weight: 600;
+}
+
+.programDetailsItems p {
+    margin: 0;
 }

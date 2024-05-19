@@ -65,7 +65,6 @@ const SingleCourse = () => {
                   <div className={`courseIsBestSeller ${style.courseIsBestSeller}`}>Best Seller {course.isBestSeller}</div>
                   <div className={`courseIsDigital ${style.courseIsDigital}`}>Digital {course.isDigital}</div>                 
                   <div className={`courseStarRating ${style.courseStarRating}`}>
-                      
                       <span className={style.stars}>
                           {Array.from({ length: Math.floor(course.starRating) }, (_, i) => (
                               <span key={i} className={style.star}>&#9733;</span>
@@ -73,32 +72,57 @@ const SingleCourse = () => {
                           {course.starRating % 1 !== 0 && <span className={style.starHalf}>&#9733;</span>}
                       </span>
                   </div>
-                  <div className={`courseReviews ${style.courseReviews}`}> {course.reviews} Reviews</div>
+                  <div className={`courseReviews ${style.courseReviews}`}>{course.reviews} Reviews</div>
                   <div className={`courseLikes ${style.courseLikes}`}>{course.likes} Likes</div>
                   <div className={`courseHours ${style.courseHours}`}>{course.hours} hours</div>
                   <div className={`courseAuthor ${style.courseAuthor}`}>Created by {course.author}</div>
               </div>
           </div>
-          <p>Price: ${course.prices.price} (Discount: {course.prices.discount}%)</p>
-          <p>Description: {course.courseContent.description}</p>
-          <p>Includes:</p>
-          <ul>
-              {course.courseContent.includes.map((include, index) => (
-                  <li key={index}>{include}</li>
-              ))}
-          </ul>
-          <p>Course Details:</p>
-          <ul>
-              {course.courseContent.courseDetails.map(detail => (
-                  <li key={detail.id}>
-                      <h2>{detail.title}</h2>
-                      <p>{detail.description}</p>
-                  </li>
-              ))}
-          </ul>
+          
+          <div className={`coursePage ${style.coursePage}`}>
+              <div className={`courseContent ${style.courseContent}`}>
+                  <div className={`courseDescription ${style.courseDescription}`}>
+                      <h1>Course Description</h1>
+                      <p>{course.courseContent.description}</p>
+                  </div>
+                  <h3 className={`whatYoullLearnTitle ${style.whatYoullLearnTitle}`}>What you'll learn</h3>
+                  <div className={`whatYoullLearn ${style.whatYoullLearn}`}>
+                      {course.courseContent.courseDetails.map(detail => (
+                          <div key={detail.id}>
+                              <div className={`whatYoullLearnPoints ${style.whatYoullLearnPoints}`}>
+                                  <i className="fa-regular fa-circle-check"></i>
+                                  <p>{detail.title}</p>
+                              </div>
+                          </div>
+                      ))}
+                  </div> 
+                  <div className={`programDetails ${style.programDetails}`}>
+                      <h1>Program Details</h1>
+                      <ol>
+                          {course.courseContent.courseDetails.map((detail, index) => (
+                              <li key={detail.id}>
+                                  <div className={`programDetailsItems ${style.programDetailsItems}`}>
+                                      <h4>{detail.title}</h4>
+                                      <p>{detail.description}</p>
+                                  </div>
+                              </li>
+                          ))}
+                      </ol>   
+                  </div>
+              </div>
+
+              <div className={`courseIncludes ${style.courseIncludes}`}>
+                  <p>This course includes:</p>
+                  <div>
+                      {course.courseContent.includes.map((include, index) => (
+                          <p key={index}>{include}</p>
+                      ))}
+                  </div>
+                  <p>Price: ${course.prices.price} (Discount: {course.prices.discount}%)</p>
+              </div>
+          </div>
       </div>
-    </>
-    
+    </>  
   );
 };
 
