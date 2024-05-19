@@ -1,7 +1,3 @@
-.singleCourseHeader {
-    /* Din befintliga stil */
-}
-
 .headerImageContainer {
     width: 100%; 
     height: 600px; 
@@ -143,10 +139,6 @@
     column-gap: 130px;
 }
 
-.courseDescription {
-    
-}
-
 .courseDescription h1 {
     font-weight: 600;
     margin-bottom: 20px;
@@ -190,27 +182,27 @@
 
 .programDetails ol {
     padding-left: 20px;
-    counter-reset: li; /* Initialisera räknaren */
+    counter-reset: li;
 }
 
 .programDetails li {
-    list-style: none; /* Ta bort standardpricken */
+    list-style: none; 
     margin-bottom: 20px;
     position: relative;
     padding-left: 40px;
-    counter-increment: li; /* Öka räknaren för varje li */
+    counter-increment: li; 
 }
 
 .programDetails li::before {
-    content: counter(li); /* Använd räknaren */
+    content: counter(li); 
     position: absolute;
     left: 0;
     top: 0;
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: white; /* Vit cirkel */
-    border: 5px solid #E6E6FA; /* Ljuslila ring */
+    background-color: white; 
+    border: 5px solid #E6E6FA; 
     color: #333;
     display: flex;
     align-items: center;
@@ -228,4 +220,72 @@
 
 .programDetailsItems p {
     margin: 0;
+}
+
+.courseIncludes {
+    border: 1px solid #191919;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    max-width: 800px; /* Justera bredden efter behov */
+    margin-left: auto;
+    margin-right: auto;
+    align-self: start;
+}
+
+.courseIncludesBoxInside {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.courseIncludesContent {
+    flex: 1; 
+}
+
+.extraSpace {
+    width: 200px; 
+}
+
+.courseIncludes p {
+    margin: 0 0 10px 0;
+}
+
+.courseIncludes div {
+    margin-bottom: 10px;
+}
+
+.courseIncludesList {
+    display: flex;
+    line-height: 1.0;
+}
+
+.courseIncludesList p {
+    margin-left: 5px;
+}
+
+.courseIncludes h4 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.prices {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.discountedPrice {
+    font-size: 1.5em;
+    color: var(--gray-900);
+    font-weight: bold;
+}
+
+.originalPrice {
+    font-size: 1.2em;
+    color: #777;
+    text-decoration: line-through;
 }

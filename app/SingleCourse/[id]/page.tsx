@@ -112,13 +112,30 @@ const SingleCourse = () => {
               </div>
 
               <div className={`courseIncludes ${style.courseIncludes}`}>
-                  <p>This course includes:</p>
-                  <div>
-                      {course.courseContent.includes.map((include, index) => (
-                          <p key={index}>{include}</p>
-                      ))}
+                  <div className={`courseIncludesBoxInside ${style.courseIncludesBoxInside}`}>
+                      <div className={`courseIncludesContent ${style.courseIncludesContent}`}>
+                          <h4>This course includes:</h4>
+                          <div>
+                              {course.courseContent.includes.map((include, index) => (
+                                  <div className={`courseIncludesList ${style.courseIncludesList}`} key={index}>
+                                      <i className="fa-regular fa-star"></i>
+                                      <p>{include}</p>
+                                  </div>
+                              ))}
+                          </div>
+                          <div className={style.prices}>
+                              {course.prices.discount ? (
+                                  <>
+                                      <span className={style.discountedPrice}>{course.prices.discount}€</span>
+                                      <span className={style.originalPrice}>{course.prices.price} €</span>
+                                  </>
+                              ) : (
+                                  <span>{course.prices.price} €</span>
+                              )}
+                          </div>
+                      </div>
+                      <div className={`extraSpace ${style.extraSpace}`}></div>
                   </div>
-                  <p>Price: ${course.prices.price} (Discount: {course.prices.discount}%)</p>
               </div>
           </div>
       </div>
