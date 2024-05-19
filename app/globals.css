@@ -248,62 +248,6 @@ footer {
   font-size: 14px;
 }
 
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 46px;
-  height: 25px;
-}
-
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.switch input:checked + .slider {
-  background-color: var(--theme);
-}
-
-.switch input:focus + .slider {
-  box-shadow: 0 0 1px var(--theme);
-}
-
-.switch input:checked + .slider:before {
-  transform: translateX(20px);
-  background-color: var(--white);
-}
-
-.switch .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: var(--gray-700);
-  transition: .4s;
-}
-
-.switch .slider:before {
-  position: absolute;
-  content: "";
-  height: 20px;
-  width: 20px;
-  left: 3px;
-  bottom: 2.7px;
-  background-color: var(--white);
-  transition: .4s;
-}
-
-.switch .slider.round {
-  border-radius: 34px;
-}
-
-.switch .slider.round:before {
-  border-radius: 50%;
-}
-
 .btn-social {
   font-size: 16px;
   display: flex;
@@ -371,43 +315,43 @@ footer {
   z-index: 1;
 }
 
-#account-details aside {
+aside {
   border-right: 1px solid var(--gray-300);
   padding-right: 20px;
   text-align: center;
 }
 
-#account-details aside .profile.info {
+aside .profile.info {
   margin: 20px;
 }
 
-#account-details aside .profile.info h5 {
+aside .profile.info h5 {
   margin-top: 15px;
   margin-bottom: 0;
 }
 
-#account-details aside .profile.info p {
+aside .profile.info p {
   font-size: 16px;
 }
 
-#account-details aside nav {
+aside nav {
   margin-top: 50px;
   text-align: left;
 }
 
-#account-details aside nav a {
+aside nav a {
   margin: 10px 0;
   text-align: left;
   justify-content: center;
 }
 
-#account-details aside nav .btn.theme-s {
+aside nav .btn.theme-s {
   text-align: left;
   justify-content: center;
 }
 
 @media(max-width:992px) {
-  #account-details aside {
+  aside {
       display: none;
   }
 }
@@ -581,8 +525,152 @@ form textarea::placeholder {
 
 form .btn-theme-s {
   width: 150px;
-  height: 50px;
+  height: 45px;
+}
+form .btn-gray {
+  width: 150px;
+  height: 45px;
 }
 
+/* SignUp Page */
 
+#signup {
+  height: 100%;
+}
 
+#signup .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+#signup .container form {
+  padding: 1rem;
+}
+
+#signup .container form .content {
+  display: grid;
+  gap: 1rem 2rem;
+  grid-template-columns: 1fr;
+  grid-template-areas: "firstname" "lastname" "email" "password" "confirm" "terms" "button";
+}
+
+@media (min-width: 768px) {
+  #signup .container form .content {
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas: "firstname lastname" "email email" "password password" "confirm confirm" "terms terms" "button button";
+  }
+}
+
+#signup .container form .content #form-firstname {
+  grid-area: firstname;
+}
+
+#signup .container form .content #form-lastname {
+  grid-area: lastname;
+}
+
+#signup .container form .content #form-email {
+  grid-area: email;
+}
+
+#signup .container form .content #form-password {
+  grid-area: password;
+}
+
+#signup .container form .content #form-confirmpassword {
+  grid-area: confirm;
+}
+
+#signup .container form .content #form-terms {
+  grid-area: terms;
+  padding: 1rem 0;
+}
+
+#signup .container form .content #form-button {
+  grid-area: button;
+}
+
+/* SignIn page */
+#signin {
+  height: 100%;
+}
+
+#signin .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+@media (min-width: 768px) {
+  #signin .container {
+      width: 60%;
+  }
+}
+
+@media (min-width: 1200px) {
+  #signin .container {
+      width: 40%;
+  }
+}
+
+#signin form {
+  padding: 1rem;
+}
+
+#signin form .content {
+  display: grid;
+  gap: 1rem 2rem;
+  grid-template-columns: 1fr;
+  grid-template-areas: 
+      "email"
+      "password"
+      "remember"
+      "button"
+      "forgot";
+}
+
+#signin form #form-email {
+  grid-area: email;
+}
+
+#signin form #form-password {
+  grid-area: password;
+}
+
+#signin form #form-remember {
+  grid-area: remember;
+  padding: 1rem 0;
+}
+
+#signin form #form-button {
+  grid-area: button;
+}
+
+#signin form #form-forgot {
+  grid-area: forgot;
+  margin: 1rem 0 0 0;
+  text-align: center;
+  width: 100%;
+}
+/* account notification page */
+#account-notification {
+  display: grid;
+  grid-template-columns: 2fr 5fr;
+  gap: 150px;
+  margin-top: 50px;
+  margin-bottom: 70px;
+  z-index: 1;
+}
+
+#account-notification .details form{
+  display: block;
+  
+
+}
+#account-notification .details .form-buttons .btn-theme-s{
+  
+
+}

@@ -12,8 +12,10 @@ export default function AccountAside({ basic, address, errorMessage }: Props) {
                 <p className="profileinfo-p">{basic.PhoneNumber}</p>
             </div>
             <nav className="asideNav">
-                <a className="btn-theme-s" href="/accountDetails"><i className="fa-regular fa-right-from-bracket"></i>Account Details</a>
+                <a className="btn-transparent aktive" href="/accountDetails"><i className="fa-regular fa-right-from-bracket"></i>Account Details</a>
+                <a className="btn-transparent" href="/accountNotification"><i className="fa-regular fa-right-to-bracket"></i>Notification</a>
                 <a className="btn-transparent" href="/Auth/SignOut"><i className="fa-regular fa-right-to-bracket"></i>Sign Out</a>
+
             </nav>
         </aside>
     );
