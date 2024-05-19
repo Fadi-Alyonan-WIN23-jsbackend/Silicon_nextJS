@@ -546,6 +546,7 @@ form .btn-gray {
 }
 
 #signup .container form {
+  display: inline;
   padding: 1rem;
 }
 
@@ -586,16 +587,24 @@ form .btn-gray {
 #signup .container form .content #form-terms {
   grid-area: terms;
   padding: 1rem 0;
+  width: 100% !important;
 }
 
 #signup .container form .content #form-button {
-  grid-area: button;
+  grid-area: button ;
+}
+#signup .container form .content #form-terms .checkbox-group label{
+  display: inline;
 }
 
-/* SignIn page */
-#signin {
-  height: 100%;
+
+#signup .container form .btn-theme-s {
+  width: 100%;
+  height: 45px;
 }
+
+
+/* SignIn page */
 
 #signin .container {
   display: flex;
@@ -616,11 +625,13 @@ form .btn-gray {
   }
 }
 
-#signin form {
+#signin .container form {
+  display: inline;
   padding: 1rem;
+  margin: 200px;
 }
 
-#signin form .content {
+#signin .container form .content {
   display: grid;
   gap: 1rem 2rem;
   grid-template-columns: 1fr;
@@ -632,24 +643,25 @@ form .btn-gray {
       "forgot";
 }
 
-#signin form #form-email {
+#signin .container form #form-email {
   grid-area: email;
 }
 
-#signin form #form-password {
+#signin .container form #form-password {
   grid-area: password;
 }
 
-#signin form #form-remember {
+#signin .container form #form-remember {
   grid-area: remember;
   padding: 1rem 0;
 }
 
-#signin form #form-button {
+#signin .container form #form-button {
   grid-area: button;
+  width: 100%;
 }
 
-#signin form #form-forgot {
+#signin .container form #form-forgot {
   grid-area: forgot;
   margin: 1rem 0 0 0;
   text-align: center;
@@ -667,10 +679,4 @@ form .btn-gray {
 
 #account-notification .details form{
   display: block;
-  
-
-}
-#account-notification .details .form-buttons .btn-theme-s{
-  
-
 }

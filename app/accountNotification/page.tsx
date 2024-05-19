@@ -70,6 +70,7 @@ export default function accountNotification() {
                     errorMessage={null}
                 />
                 <div className="details">
+                  <h1>Notifications</h1>
                     {status.error && (
                         <div className="alert alert-danger" role="alert">
                             {status.error}
@@ -86,6 +87,7 @@ export default function accountNotification() {
                             handleSubscriptionChange();
                         }}
                         >
+                        <span>Preferred email for notifications</span>
                         <input
                             type="email"
                             value={subscriber.email}
