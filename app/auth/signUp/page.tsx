@@ -53,7 +53,7 @@ export default function signUp() {
             return;
         }
         try {
-            const res = await fetch('', {
+            const res = await fetch('https://accountprovider--silicon.azurewebsites.net/api/SignUp?code=xKmBjTNCOst-zcPnF056L0MEgc0TkUn4iAZO0xPU1ouVAzFurodsvw==', {
                 method: 'post',
                 headers: {
                     'content-type': 'application/json'
