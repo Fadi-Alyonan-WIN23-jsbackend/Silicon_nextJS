@@ -198,11 +198,11 @@
     position: absolute;
     left: 0;
     top: 0;
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     background-color: white; 
-    border: 5px solid #E6E6FA; 
+    border: 10px solid #f3f3fd; 
     color: #333;
     display: flex;
     align-items: center;
@@ -211,7 +211,7 @@
 }
 
 .programDetailsItems {
-    margin-left: 40px;
+    margin-left: 50px;
 }
 
 .programDetailsItems h4 {
@@ -223,30 +223,29 @@
 }
 
 .courseIncludes {
-    border: 1px solid #191919;
+    border: 1px solid #d1d1d1;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    padding: 30px;
     border-radius: 10px;
     position: relative;
-    max-width: 800px; /* Justera bredden efter behov */
+    max-width: 800px; 
     margin-left: auto;
-    margin-right: auto;
+    margin-right: -50px;
     align-self: start;
 }
 
 .courseIncludesBoxInside {
     display: flex;
-    justify-content: space-between;
     align-items: flex-start;
 }
 
 .courseIncludesContent {
-    flex: 1; 
+    flex: 1;
 }
 
 .extraSpace {
-    width: 200px; 
+    width: 120px; 
 }
 
 .courseIncludes p {
@@ -267,15 +266,19 @@
 }
 
 .courseIncludes h4 {
+    display: block; 
+    white-space: nowrap; 
     font-size: 20px;
     font-weight: 600;
+    margin-bottom: 20px;
 }
 
 .prices {
     display: flex;
-    justify-content: space-between;
+    column-gap: 20px;
     align-items: center;
-    margin-top: 10px;
+    margin-top: 20px;
+   
 }
 
 .discountedPrice {
@@ -288,4 +291,17 @@
     font-size: 1.2em;
     color: #777;
     text-decoration: line-through;
+}
+
+.btnTheme {
+    background-color: var(--theme);
+    color: white;
+    padding: 10px 25px 10px 25px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.btnTheme:hover {
+    background-color: #4b4db6;
 }
