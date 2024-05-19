@@ -38,7 +38,7 @@ async function fetchCourses(): Promise<Course[]> {
     }
   `;
 
-  const res = await fetch('', {
+  const res = await fetch('https://coursesprovidergraphql.azurewebsites.net/api/GraphQL?code=9DnvhZulNJXNyVRryct85sroBFHfiY6TQw_iz4HRFfUvAzFuNCC0iA%3D%3D', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
