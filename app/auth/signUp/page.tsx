@@ -116,13 +116,15 @@ export default function signUp() {
             <div className="container">
                 
                 <form onSubmit={handleSubmit} noValidate>
-                {error && (
-                    <div className="alert alert-danger" role="alert">
-                        {error}
+                    <div>
+                        {error && (
+                            <div className="alert alert-danger" role="alert">
+                                {error}
+                            </div>
+                        )}
+                        <h1>Create Account</h1>
+                        <p>Already have an account? <a href="/auth/signIn"><a>Sign In</a></a></p>
                     </div>
-                )}
-                    <h1>Create Account</h1>
-                    <p>Already have an account? <a href="/auth/signin"><a>Sign In</a></a></p>
                     <div className="content">
                         <div className="input-group">
                             <label htmlFor="firstName">First Name</label>
@@ -157,7 +159,7 @@ export default function signUp() {
                             {fieldErrors.termsAndConditions && <span className="error-message">{fieldErrors.termsAndConditions}</span>}
                         </div>
                     </div>
-                    <button className="btn-theme-s" type="submit">Sign Up</button>
+                    <button id="form-button" className="btn-theme-s" type="submit">Sign Up</button>
                 </form>
             </div>
         </section>
