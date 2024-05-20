@@ -1,66 +1,101 @@
 "use client"
 import { useEffect, useState } from "react";
 import AccountAside from "../components/account/accountAside";
+import { cookies } from "next/headers";
 interface Subscriber {
     email: string;
 }
 export default function accountNotification() {
-    const [subscriber, setSubscriber] = useState<Subscriber>({email: "fadi@domain.com",} ); 
+  const [subscriber, setSubscriber] = useState<Subscriber>({ email: "" });
     const [isSubscribed, setIsSubscribed] = useState<boolean | null>(null);
     const [loading, setLoading] = useState(false);
     const [status, setStatus] = useState({ error: '', success: '' });
 
+    const getCookie = (name: string): string | null => {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
+        return null;
+    };
+
+    useEffect(() => {
+        const fetchUserEmail = async () => {
+            try {
+                const userId = cookies().get()
+                console.log(userId)
+                if (userId) {
+                    const response = await fetch('https://yourapiendpoint.com/getUserEmail', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ userid: userId }),
+                    });
+                    const data = await response.json();
+                    setSubscriber({ email: data.email });
+                } else {
+                    setStatus({ ...status, error: 'User ID not found in cookies' });
+                }
+            } catch (error) {
+                console.error('Error fetching user email:', error);
+                setStatus({ ...status, error: 'Failed to fetch user email' });
+            }
+        };
+
+        fetchUserEmail();
+    }, []);
+
     useEffect(() => {
         const checkSubscriptionStatus = async () => {
-          try {
-            const response = await fetch('https://subscriptionprovider--silicon.azurewebsites.net/api/GetOneSubscriber?code=SmSwryfTOd5iF1-uTcfg-HD55X-_CBuF_eBlCdtA2fdFAzFuP-QtUw%3D%3D', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(subscriber),
-            });
-            if (response.status === 200){
-                setIsSubscribed(true);
-                console.log(isSubscribed)
-            } else if (response.status === 404) {
-                setIsSubscribed(false);
-                console.log(isSubscribed)
+            try {
+                const response = await fetch('https://subscriptionprovider--silicon.azurewebsites.net/api/GetOneSubscriber?code=SmSwryfTOd5iF1-uTcfg-HD55X-_CBuF_eBlCdtA2fdFAzFuP-QtUw%3D%3D', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(subscriber),
+                });
+                if (response.status === 200) {
+                    setIsSubscribed(true);
+                } else if (response.status === 404) {
+                    setIsSubscribed(false);
+                }
+            } catch (error) {
+                console.error('Error fetching subscription status:', error);
+                setStatus({ ...status, error: 'Failed to fetch subscription status' });
             }
-
-          } catch (error) {
-            console.error('Error fetching subscription status:', error);
-            setStatus({ ...status, error: 'Failed to fetch subscription status' });
-          }
         };
-    
-        checkSubscriptionStatus();
-      }, [subscriber]);
-    
-      const handleSubscriptionChange = async () => {
+
+        if (subscriber.email) {
+            checkSubscriptionStatus();
+        }
+    }, [subscriber]);
+
+    const handleSubscriptionChange = async () => {
         setLoading(true);
         setStatus({ error: '', success: '' });
         try {
             const response = await fetch(isSubscribed ? 'https://subscriptionprovider--silicon.azurewebsites.net/api/Unsubscribe?code=EqJJ2sEFas7vYLtEAhTiKFPqQXZEbW-d5PZS-qQWEL82AzFufxQg2Q%3D%3D' : 'https://subscriptionprovider--silicon.azurewebsites.net/api/Subscribe?code=BgEqgXIDxWfxcRWTUirUYMNQHf4vDVDKemfB4dd9Ir9gAzFuxO_zmg%3D%3D', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ email: subscriber.email }),
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: subscriber.email }),
             });
             if (response.ok) {
-              setIsSubscribed(!isSubscribed);
-              setStatus({ error: '', success: isSubscribed ? 'Successfully unsubscribed' : 'Successfully subscribed' });
+                setIsSubscribed(!isSubscribed);
+                setStatus({ error: '', success: isSubscribed ? 'Successfully unsubscribed' : 'Successfully subscribed' });
             } else {
-              setStatus({ error: 'Failed to update subscription', success: '' });
+                setStatus({ error: 'Failed to update subscription', success: '' });
             }
-          } catch (error) {
+        } catch (error) {
             console.error('Error updating subscription:', error);
             setStatus({ error: 'Failed to update subscription', success: '' });
-          } finally {
+        } finally {
             setLoading(false);
-          }
-      };
+        }
+    };
+
     return (
         <div className="container">
             <section id="account-notification">
@@ -123,4 +158,8 @@ export default function accountNotification() {
         </div>
     );
   }
+
+function Cookie(arg0: string) {
+  throw new Error("Function not implemented.");
+}
   

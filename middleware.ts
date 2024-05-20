@@ -4,10 +4,9 @@ export async function middleware(request: NextRequest) {
     const cookie = cookies().get('Authorization');
     if (!cookie) {
         return NextResponse.redirect(new URL("/auth/signIn", request.url));
-    } else {
-        return NextResponse.next(); 
     }
+    
 }
 export const config = {
-    matcher: "/(courses|account)/:path*"
+    matcher: "/(courses|accountDetails|accountNotification)/:path*"
 }
