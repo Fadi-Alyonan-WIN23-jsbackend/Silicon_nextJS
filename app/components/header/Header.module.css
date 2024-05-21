@@ -96,3 +96,8 @@
         display: none;
     }
 }
+
+.header .div {
+    display: flex;
+    gap: 25px;
+}
