@@ -1,7 +1,12 @@
 "use client"
-import { Props } from "@/app/interfaces/accountTyps";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AccountAside from '@/app/components/account/accountAside'
+import { Props } from "@/app/interfaces/accountTyps";
+
+const getUserInformationUrl = 'https://accountprovider--silicon.azurewebsites.net/api/GetUserInformation?code=aNTtpYLpi-kJwhT7UwxIh3Bg-d_wgAl7i9ZwkTB93ca9AzFucxov5g%3D%3D';
+const updateUserInformationUrl = 'https://accountprovider--silicon.azurewebsites.net/api/UpdateUserInformation?code=5qeaYssH-26LfFNyO3KApmRHWQQVDbgMOywfZ-xgDHDSAzFu-XqzmQ%3D%3D';
+const getAddressInfoUrl = 'https://accountprovider--silicon.azurewebsites.net/api/GetUserAddressInfo?code=6cfnRqXK6Gi1L5msrQC5PxW4n8RF1ojt9eorln6zmcjLAzFubG8-pQ%3D%3D';
+const updateAddressUrl = 'https://accountprovider--silicon.azurewebsites.net/api/UpdateAddress?code=KJF8bVQuYjpOP2TTvU-05IQqPw02GhkVigR_LigalStJAzFuKAttKg%3D%3D ';
 
 
 const validateEmail = (email: string): boolean => {
@@ -12,15 +17,40 @@ const validateNotEmpty = (input: string): boolean => {
     return input.trim().length > 0;
 };
 
+const getCookie = (name: string) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; &{Authorization}=`);
+    if (parts.length === 2) return parts.pop()?.split(';').shift();
+};  
+
 export default function Home() {
-    const [formData, setFormData] = useState<Props>();
+    const [formData, setFormData] = useState<any>(null);
     const [errors, setErrors] = useState<Record<string, string | null>>({});
     
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const userInfoResponse = await fetch(getUserInformationUrl);
+                if (!userInfoResponse.ok) throw new Error("Failed to fetch user information")
+                const userInfoData = await userInfoResponse.json();
+                console.log (userInfoResponse)
+
+
+                const addressInfoResponse = await fetch(getAddressInfoUrl);
+                if (!addressInfoResponse.ok) throw new Error("Failed to fetch address information")
+                const addressInfoData = await addressInfoResponse.json();
+                setFormData({ basic: userInfoData, address: addressInfoData});
+            } catch (error) {
+                console.error('Error Fetching data:', error)
+            }
+        }
+        fetchData();
+    }, []);
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
+        const newFormData = { ...formData };
 
-        
-        
         if (formData != null) {
             const newFormData = { ...formData };
             if (name in formData.basic) {
@@ -41,14 +71,35 @@ export default function Home() {
         setErrors(prev => ({ ...prev, [name]: error }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (Object.values(errors).some(err => err !== null)) {
             alert('Please fix the errors before submitting.');
             return;
         }
+        try {
+            await fetch(updateUserInformationUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData.basic)
+            });
+            await fetch(updateAddressUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData.address)
+            });
+            alert('Data updated successfully');
+        }catch (error) {
+            console.error('Error updating data:', error);
+            alert('Failed to update data')
+        }
         console.log('Form Data Submitted:', formData);
     };
+
 
     return (
         <div className="container">
