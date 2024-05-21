@@ -99,13 +99,14 @@ export default function Home() {
         }
         console.log('Form Data Submitted:', formData);
     };
+    
 
 
     return (
         <div className="container">
             <section id="account-details">
                 
-                {<AccountAside basic={{ FirstName: '', LastName: '', Email: '', PhoneNumber: '', Biography: '' }} address={{ AddressLine1: '', AddressLine2: '', PostalCode: '', City: '' }} errorMessage={null} />}
+                {<AccountAside />}
                 
                
                 <div className="account-details-forms">

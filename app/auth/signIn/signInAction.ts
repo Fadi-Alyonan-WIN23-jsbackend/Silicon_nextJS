@@ -27,7 +27,6 @@ export default async function signInAction(currentState: any, formdata: FormData
 
             cookies().set('Authorization', result.accessToken ,{
                 secure: true,
-                httpOnly:true,
                 expires: Date.now() + 24 * 60 * 60 * 1000 * 1,
                 path:'/',
                 sameSite: 'strict'

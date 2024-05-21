@@ -27,7 +27,7 @@ const CourseList: React.FC<CourseListProps> = ({ courses }) => {
 
               return (
                 <div key={item.id} className={`course ${styles.course}`}>
-                  <Link href={`/SingleCourse/${item.id}/`}>
+                  <Link className={`courseLink ${styles.courseLink}`} href={`/SingleCourse/${item.id}/`}>
                     
                       {item.isBestSeller && <div className={`bestSeller text-s ${styles.bestSeller}`}>Best Seller</div>}
                       <img className={`courseImage ${styles.courseImage}`} src={item.imageUri} alt={item.title} />
