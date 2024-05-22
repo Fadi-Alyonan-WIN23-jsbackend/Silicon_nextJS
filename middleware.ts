@@ -4,6 +4,8 @@ export async function middleware(request: NextRequest) {
     const cookie = cookies().get('Authorization');
     if (!cookie) {
         return NextResponse.redirect(new URL("/auth/signIn", request.url));
+    }else {
+        return NextResponse.redirect(new URL("/courses", request.url));
     }
     
 }
