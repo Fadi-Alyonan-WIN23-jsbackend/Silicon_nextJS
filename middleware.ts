@@ -8,5 +8,5 @@ export async function middleware(request: NextRequest) {
     
 }
 export const config = {
-    matcher: "/(courses|accountDetails|accountNotification)/:path*"
+    matcher: "//:path*"
 }
