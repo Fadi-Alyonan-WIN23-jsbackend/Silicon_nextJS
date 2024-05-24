@@ -248,62 +248,6 @@ footer {
   font-size: 14px;
 }
 
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 46px;
-  height: 25px;
-}
-
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.switch input:checked + .slider {
-  background-color: var(--theme);
-}
-
-.switch input:focus + .slider {
-  box-shadow: 0 0 1px var(--theme);
-}
-
-.switch input:checked + .slider:before {
-  transform: translateX(20px);
-  background-color: var(--white);
-}
-
-.switch .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: var(--gray-700);
-  transition: .4s;
-}
-
-.switch .slider:before {
-  position: absolute;
-  content: "";
-  height: 20px;
-  width: 20px;
-  left: 3px;
-  bottom: 2.7px;
-  background-color: var(--white);
-  transition: .4s;
-}
-
-.switch .slider.round {
-  border-radius: 34px;
-}
-
-.switch .slider.round:before {
-  border-radius: 50%;
-}
-
 .btn-social {
   font-size: 16px;
   display: flex;
@@ -357,13 +301,88 @@ footer {
 .btn-icon{
   margin-right: 10px;
 }
-form {
-  width: 100%;
+
+
+
+/* account aside css */
+ 
+#account-details {
   display: grid;
+  grid-template-columns: 2fr 5fr;
+  gap: 150px;
+  margin-top: 50px;
+  margin-bottom: 70px;
+  z-index: 1;
+}
+
+aside {
+  border-right: 1px solid var(--gray-300);
+  padding-right: 20px;
+  text-align: center;
+}
+
+aside .profile.info {
+  margin: 20px;
+}
+
+aside .profile.info h5 {
+  margin-top: 15px;
+  margin-bottom: 0;
+}
+
+aside .profile.info p {
+  font-size: 16px;
+}
+
+aside nav {
+  margin-top: 50px;
+  text-align: left;
+}
+
+aside nav a {
+  margin: 10px 0;
+  text-align: left;
+  justify-content: center;
+}
+
+aside nav .btn.theme-s {
+  text-align: left;
+  justify-content: center;
+}
+
+@media(max-width:992px) {
+  aside {
+      display: none;
+  }
+}
+
+
+
+
+/* account details css */
+
+.account-details-forms {
+  display: flex;
+  flex-direction: column;
+}
+
+.account-titles {
+  display: flex;
+  flex-direction: column;
+}
+
+form{
+  margin-top: 100px;
+  width: 80%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:"account-title subtitle" "first last" "email phone" "bio bio";
+  column-gap: 50px;
+
 }
 
 form .input-group {
-  display: grid;
+display: grid;
 }
 
 form .checkbox-group {
@@ -384,7 +403,7 @@ form .checkbox-group label {
   font-weight: 400;
 }
 
-form span.field-validation-error {
+form span.error-message {
   position: static;
   top: 0;
   right: 0;
@@ -395,12 +414,44 @@ form span.field-validation-error {
 form label {
   margin-bottom: 0.188rem;
   font-weight: 700;
+  display: flex;
+  flex-direction: column;
 }
 
 form input {
   padding: 1rem;
   border-radius: 0.5rem !important;
   border: 0.063rem solid var(--gray-400);
+  width: 410px;
+  height: 50px;
+}
+.account-title {
+  grid-area: account-title;
+}
+
+.subtitle{
+ grid-area: subtitle; 
+ color: #6366F1;
+}
+
+.first {
+  grid-area: first;
+}
+
+.last {
+ grid-area: last;
+}
+
+.email {
+  grid-area: email;
+}
+
+.phone {
+  grid-area: phone;
+}
+
+.bio {
+ grid-area: bio;
 }
 
 form input::placeholder {
@@ -417,13 +468,215 @@ form input.input-validation-error::placeholder {
 }
 
 form textarea {
+  
   padding: 1rem;
   border-radius: 0.5rem !important;
   border: 0.063rem solid var(--gray-400);
   resize: none;
+  height: 100px;
+  width: 870px;
+  
 }
 
 form textarea::placeholder {
   opacity: 0.4;
 }
 
+.address-info {
+  color: #6366F1;
+}
+
+.second-form {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "first-address first-address" "second-address second-address" "postal city";
+  row-gap: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+.first-address {
+  grid-area: first-address;
+}
+
+.second-address {
+  grid-area: second-address;
+}
+
+.postal {
+  grid-area: postal;
+}
+
+.city {
+  grid-area: city;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+#cancel {
+  grid-area: cancel;
+  width: 100px;
+  height: 50px;
+}
+
+form .btn-theme-s {
+  width: 150px;
+  height: 45px;
+}
+form .btn-gray {
+  width: 150px;
+  height: 45px;
+}
+
+/* SignUp Page */
+
+#signup {
+  height: 100%;
+}
+
+#signup .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+#signup .container form {
+  display: inline;
+  padding: 1rem;
+}
+
+#signup .container form .content {
+  display: grid;
+  gap: 1rem 2rem;
+  grid-template-columns: 1fr;
+  grid-template-areas: "firstname" "lastname" "email" "password" "confirm" "terms" "button";
+}
+
+@media (min-width: 768px) {
+  #signup .container form .content {
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas: "firstname lastname" "email email" "password password" "confirm confirm" "terms terms" "button button";
+  }
+}
+
+#signup .container form .content #form-firstname {
+  grid-area: firstname;
+}
+
+#signup .container form .content #form-lastname {
+  grid-area: lastname;
+}
+
+#signup .container form .content #form-email {
+  grid-area: email;
+}
+
+#signup .container form .content #form-password {
+  grid-area: password;
+}
+
+#signup .container form .content #form-confirmpassword {
+  grid-area: confirm;
+}
+
+#signup .container form .content #form-terms {
+  grid-area: terms;
+  padding: 1rem 0;
+  width: 100% !important;
+}
+
+#signup .container form .content #form-button {
+  grid-area: button ;
+}
+#signup .container form .content #form-terms .checkbox-group label{
+  display: inline;
+}
+
+
+#signup .container form .btn-theme-s {
+  width: 100%;
+  height: 45px;
+}
+
+
+/* SignIn page */
+
+#signin .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+@media (min-width: 768px) {
+  #signin .container {
+      width: 60%;
+  }
+}
+
+@media (min-width: 1200px) {
+  #signin .container {
+      width: 40%;
+  }
+}
+
+#signin .container form {
+  display: inline;
+  padding: 1rem;
+  margin: 200px;
+}
+
+#signin .container form .content {
+  display: grid;
+  gap: 1rem 2rem;
+  grid-template-columns: 1fr;
+  grid-template-areas: 
+      "email"
+      "password"
+      "remember"
+      "button"
+      "forgot";
+}
+
+#signin .container form #form-email {
+  grid-area: email;
+}
+
+#signin .container form #form-password {
+  grid-area: password;
+}
+
+#signin .container form #form-remember {
+  grid-area: remember;
+  padding: 1rem 0;
+}
+
+#signin .container form #form-button {
+  grid-area: button;
+  width: 100%;
+}
+
+#signin .container form #form-forgot {
+  grid-area: forgot;
+  margin: 1rem 0 0 0;
+  text-align: center;
+  width: 100%;
+}
+/* account notification page */
+#account-notification {
+  display: grid;
+  grid-template-columns: 2fr 5fr;
+  gap: 150px;
+  margin-top: 50px;
+  margin-bottom: 70px;
+  z-index: 1;
+}
+
+#account-notification .details form{
+  display: block;
+}

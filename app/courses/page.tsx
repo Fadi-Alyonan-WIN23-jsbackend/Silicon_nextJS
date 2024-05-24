@@ -1,74 +1,76 @@
+import React from 'react';
+import CourseList from './CourseList';
+import style from './CourseList.module.css';
 import { Course } from '../interfaces/coursesTypes';
-export default function Courses() {
 
-    const courses:Course[] = [
-        {
-            id: 'fasdqw2324324',
-            title: "Introduction to JavaScript",
-            author: "Jane Doe",
-            image: "javascript-course.jpg",
-            originalPrice: "$199",
-            discountPrice: "$99",
-            isDigital: true,
-            isBestseller: true,
-            hours: 20,
-            likesInProcent: '93',
-            numberOfLikes: '430'
-        },{
-            id: 'fasdqw2324324',
-            title: "Introduction to JavaScript",
-            author: "Jane Doe",
-            image: "javascript-course.jpg",
-            originalPrice: "$199",
-            discountPrice: "$99",
-            isBestseller: true,
-            isDigital: true,
-            hours: 20,
-            likesInProcent: '93',
-            numberOfLikes: '430'
+async function fetchCourses(): Promise<Course[]> {
+  const query = `
+    {
+      getCourses {
+        id
+        imageUri
+        imageHeaderUri
+        title
+        author
+        categories
+        ingress
+        starRating
+        reviews
+        likesInPercent
+        likes
+        hours
+        prices {
+          price
+          discount
         }
-    ]
-    return (
-        <section id="courses">
-            <div className="container">
-                <div><h1 className="d6">Courses</h1></div>
-                <div className="all-courses">
-                    {courses && courses.length > 0 ? (
-                        courses.map((item, index) => (
-                            <div key={index} className="course">
-                                {item.isBestseller && <div className="best-seller text-s">Best Seller</div>}
-                                <img className="course-image" src={`/images/${item.image}`} alt={item.image} />
-                                <div className="content">
-                                    <div><h5 className="course-title text-lead">{item.title}</h5></div>
-                                    <div className="course-author text-s">{item.author}</div>
-                                    <div className="course-prices">
-                                        {item.discountPrice && item.discountPrice !== "0" ? (
-                                            <>
-                                                <div className="discount-price">{item.discountPrice}</div>
-                                                <div className="original-price">{item.originalPrice}</div>
-                                            </>
-                                        ) : (
-                                            <div>{item.originalPrice}</div>
-                                        )}
-                                    </div>
-                                    <div className="course-footer">
-                                        <div className="course-hours"><i className="fa-regular fa-clock"></i> {item.hours} hours</div>
-                                        <div className="course-likes">
-                                            <i className="fa-regular fa-thumbs-up"></i>
-                                            {`${item.likesInProcent}% (${item.numberOfLikes})`}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        ))
-                    ) : (
-                        <>
-                            <h2>No courses found</h2>
-                        </>
-                    )}
-                </div>
-            </div>
-        </section>
-    );
+        courseContent {
+          description
+          includes
+          courseDetails {
+            id
+            title
+            description
+          }
+        }
+        isDigital
+        isBestSeller
+      }
+    }
+  `;
+
+  const res = await fetch('https://coursesprovidergraphql.azurewebsites.net/api/GraphQL?code=9DnvhZulNJXNyVRryct85sroBFHfiY6TQw_iz4HRFfUvAzFuNCC0iA%3D%3D', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+      'Pragma': 'no-cache',
+    },
+    body: JSON.stringify({ query }),
+  });
+
+  if (!res.ok) {
+    throw new Error(`Could not fetch courses from CourseProvider: ${res.statusText}`);
   }
-  
+
+  const json = await res.json();
+  if (json.errors) {
+    throw new Error(`GraphQL error: ${json.errors.map((err: any) => err.message).join(', ')}`);
+  }
+
+  console.log('Fetched courses:', json.data.getCourses); // Logga de hämtade kurserna för att verifiera
+
+  return json.data.getCourses;
+}
+
+const CoursesPage = async () => {
+  const courses = await fetchCourses();
+  console.log('Courses in CoursesPage:', courses); // Logga de kurser som skickas till CourseList
+
+  return (
+    <main className={style.main}>
+      <CourseList courses={courses} />
+    </main>
+  );
+};
+
+export default CoursesPage;
