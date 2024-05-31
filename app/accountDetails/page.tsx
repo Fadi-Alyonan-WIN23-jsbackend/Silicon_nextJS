@@ -266,8 +266,10 @@ const validateNotEmpty = (input: string): boolean => {
                                 onChange={handleUserChange}
                             ></textarea>
                         </div>
-                        <button type="submit">Save Changes</button>
-                        <button type="button" onClick={() => console.log('Cancel')}>Cancel</button>
+                        <div className="from-buttons1">
+                            <button id="save1" className="btn-theme-s" type="submit">Save Changes</button>
+                            <button id="cancel1" className="cancel1" type="button" onClick={() => console.log('Cancel')}>Cancel</button>
+                        </div>
                     </form>
                     
                     <h5 className="address-info">Address info</h5>
@@ -309,9 +311,9 @@ const validateNotEmpty = (input: string): boolean => {
                                 onChange={handleAddressChange}
                             />
                         </div>
-                        <div className="form-buttons">
-                            <button id="save" className="btn-theme-s" type="submit">Save Changes</button>
-                            <button id="cancel" className="cancel" type="button" onClick={() => console.log('Cancel')}>Cancel</button>
+                        <div className="form-buttons2">
+                            <button id="save2" className="btn-theme-s" type="submit">Save Changes</button>
+                            <button id="cancel2" className="cancel2" type="button" onClick={() => console.log('Cancel')}>Cancel</button>
                         </div>
                     </form>
                     </div>
