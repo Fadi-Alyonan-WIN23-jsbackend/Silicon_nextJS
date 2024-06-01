@@ -6,11 +6,12 @@ import { Props } from "@/app/interfaces/accountTyps";
 
 
 interface UserInfo {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phoneNumber: string;
-    bio: string;
+    UserId: string,
+    FirstName: string;
+    LastName: string;
+    Email: string;
+    PhoneNumber: string;
+    Bio: string;
 }
 
 interface AddressInfo {
@@ -47,10 +48,26 @@ const validateNotEmpty = (input: string): boolean => {
     };
 
     export default function accountDetails() {
-        const [userInfo, setUserInfo] = useState<UserInfo>({ firstName: '', lastName: '', email: '', phoneNumber: '', bio: '' });
-        const [addressInfo, setAddressInfo] = useState<AddressInfo>({ AddressLine1: '', AddressLine2: '', PostalCode: '', City: '' });
+        const [error, setError] = useState<string>("")
+        const [userInfo, setUserInfo] = useState<UserInfo>({ 
+            UserId: '',
+            FirstName: '', 
+            LastName: '', 
+            Email: '', 
+            PhoneNumber: '', 
+            Bio: '' 
+        });
+
+        const [addressInfo, setAddressInfo] = useState<AddressInfo>({ 
+            AddressLine1: '', 
+            AddressLine2: '', 
+            PostalCode: '', 
+            City: '' 
+        });
 
         useEffect(() => {
+
+            
             const fetchUserInfo = async () => {
                 const token = getCookie('Authorization');
                 if (token) {
@@ -68,15 +85,16 @@ const validateNotEmpty = (input: string): boolean => {
 
                             if (response.ok) {  
                                 const data = await response.json();
-                                console.log(data);
+                                console.log(data)
                                 setUserInfo(data);
                             }else if (response.status == 404) {
                                 setUserInfo({
-                                    firstName: "",
-                                    lastName: "",
-                                    email: "",
-                                    phoneNumber: "",
-                                    bio: ""
+                                    UserId: userId,
+                                    FirstName: "",
+                                    LastName: "",
+                                    Email: "",
+                                    PhoneNumber: "",
+                                    Bio: ""
                                 }); 
                             
                             } else {
@@ -85,8 +103,6 @@ const validateNotEmpty = (input: string): boolean => {
                         }   catch (error) {
                             console.error('Error fetching user info:', error);
                         }
-                    } else {
-                        console.error('User ID not found in token');
                     }
                 }
             };
@@ -125,117 +141,89 @@ const validateNotEmpty = (input: string): boolean => {
                             } catch (error) {
                               console.error("Error fetching user address information:", error);
                             }
-                        };
-                }
-            };
+                        }
+                    }
+                };
 
 
+                fetchUserInfo();
+                fetchAddressInfo();
+            }, []);
 
 
-
-            // const fetchAddressInfo = async () => {
-            //     const token = getCookie('Authorization');
-            //     if (token) {
-            //         const accessToken: any = jwtDecode(token);
-            //         const userId = accessToken.nameId;
-            //         if (userId) {
-            //             try {
-            //                 const response = await fetch(getAddressInfoUrl, {
-            //                     method: 'POST',
-            //                     headers: {
-            //                         'Content-Type': 'application/json',
-            //                     },
-            //                     body: JSON.stringify({ userId: userId }),
-            //                 });
-            //                 if (response.ok) {
-            //                     const data = await response.json();
-            //                     console.log(data)
-            //                     setAddressInfo(data);
-            //                 } else {
-            //                     console.error('Failed to feth address info:', response.statusText);
-            //                 }
-            //             } catch (error) {
-            //                 console.error('Error fetching addressinfo', error);
-            //             }
-            //         } else {
-            //             console.error('User ID not found in token');
-            //         }
-            //     }
-            // };
-
-            fetchUserInfo();
-            fetchAddressInfo();
-        }, []);
+        
 
 
-        const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const handleUserChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
             const { name, value } = e.target;
-            setUserInfo((prev) => ({ ...prev, [name]: value }));
+          setUserInfo({ ...userInfo, [name]: value });
         };
-    
+
+
         const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
             const { name, value } = e.target;
-            setAddressInfo((prev) => ({ ...prev, [name]: value }));
+              setAddressInfo({ ...addressInfo, [name]: value });
         };
-    
 
 
-
-        // const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        //     const { name, value } = e.target;
-        // if (userInfo) {
-        //   setUserInfo({ ...userInfo, [name]: value });
-        // }
-        // };
-
-        // const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        //     const { name, value } = e.target;
-        //     if (addressInfo) {
-        //       setAddressInfo({ ...addressInfo, [name]: value });
-        //     }
-        // };
-
-        const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        const handleUserSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault();
-            const form = e.target as HTMLFormElement;
+            const token = getCookie('Authorization');
+            if (token){
+                const accessToken: any = jwtDecode(token);
+                const userId = accessToken.nameid;
 
-            if (form.className.includes('first-form')) {
                 try {
-                    const response = await fetch(updateUserInformationUrl, {
-                        method: 'POST',
+                    const res = await fetch(updateUserInformationUrl, {
+                        method: 'post',
                         headers: {
-                            'Content-Type': 'application/json',
+                            'content-type': 'application/json'
                         },
-                        body: JSON.stringify(userInfo),
+                        body: JSON.stringify({ 
+                            UserId: userId,
+                            FirstName: userInfo.FirstName,
+                            LastName: userInfo.LastName,
+                            Email: userInfo.Email,
+                            PhoneNumber: userInfo.PhoneNumber,
+                            Biography: userInfo.Bio})
                     });
-                    if (response.ok) {
-                        console.log('User information updated successfully');
+                    if(res.status === 200) {
+                        const result = await res.json();
+                        setUserInfo(result)
                     } else {
-                        console.error('Failed to update user info:', response.statusText);
+                        setError('Something went wrong. Try again later')
                     }
                 } catch (error) {
-                    console.error('Error updating user info', error);
-                }
-            } else if (form.className.includes('second-form')) {
-                try {
-                    const response = await fetch(updateAddressUrl, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(addressInfo),
-                    });
-                    if (response.ok) {
-                        console.log('Address information updated sucessfully');
-                    } else {
-                        console.error('Failed to update address info:', response.statusText);
-                    }
-                } catch (error) {
-                    console.error('Error updating address info:', error);
+                    console.error('Error:', error);
+                    setError('Something went wrong. Try again later')
                 }
             }
-        };
-    
+            
+            
+        }
+
+        const handleAddressSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+            e.preventDefault();
+            try {
+                const res = await fetch(updateAddressUrl, {
+                    method: 'post',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(addressInfo)
+                });
+                if(res.status === 200) {
+                    const result = await res.json();
+                    setAddressInfo(result)
+                } else {
+                    
+                    setError('Something went wrong. Try again later');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                setError('Something went wrong. Try again later')
+            }
+        }
     
 
         return (
@@ -246,104 +234,104 @@ const validateNotEmpty = (input: string): boolean => {
                     
                 
                     <div className="account-details-forms">
-                    <form className="first-form" onSubmit={handleSubmit}>
+                    <form className="first-form" onSubmit={handleUserSubmit}>
                     <div className="account-titles">
                         <h2 className="account-title">Account Details</h2>
                         <h5 className="subtitle">Account info</h5>
                     </div>
                         <div className="first">
-                            <label htmlFor="firstName">First Name</label>
+                            <label htmlFor="FirstName">First Name</label>
                             <input 
                                 type="text"
-                                name="firstName"
-                                value={userInfo.firstName}
-                                onChange={handleChange}
+                                name="FirstName"
+                                value={userInfo.FirstName}
+                                onChange={handleUserChange}
                             />
                         </div>
                         <div className="last">
-                            <label htmlFor="lastName">Last Name</label>
+                            <label htmlFor="LastName">Last Name</label>
                             <input
                                 type="text"
-                                name="lastName"
-                                value={userInfo.lastName}
-                                onChange={handleChange}
+                                name="LastName"
+                                value={userInfo.LastName}
+                                onChange={handleUserChange}
                             />
                             
                         </div>
                         <div className="email">
-                            <label htmlFor="email">Email</label>
+                            <label htmlFor="Email">Email</label>
                             <input
                                 type="email"
-                                name="email"
-                                value={userInfo.email}
-                                onChange={handleChange}
+                                name="Email"
+                                value={userInfo.Email}
+                                onChange={handleUserChange}
                             />
                         </div>
                         <div className="phone">
-                            <label htmlFor="phoneNumber">Phone Number (Optional)</label>
+                            <label htmlFor="PhoneNumber">Phone Number (Optional)</label>
                             <input
                                 type="text"
-                                name="phoneNumber"
-                                value={userInfo.phoneNumber}
-                                onChange={handleChange}
+                                name="PhoneNumber"
+                                value={userInfo.PhoneNumber}
+                                onChange={handleUserChange}
                             />
                         </div>
                         <div className="bio">
-                            <label htmlFor="biography">Biography (Optional)</label>
+                            <label htmlFor="Bio">Biography (Optional)</label>
                             <textarea
-                                name="bio"
-                                value={userInfo.bio}
-                                onChange={handleChange}
+                                name="Bio"
+                                value={userInfo.Bio}
+                                onChange={handleUserChange}
                             ></textarea>
                         </div>
-                        <button type="submit">Save Changes</button>
-                        <button type="button" onClick={() => console.log('Cancel')}>Cancel</button>
+                        <div className="form-buttons1">
+                            <button id="save1" className="btn-theme-s" type="submit">Save Changes</button>
+                            <button id="cancel1" className="cancel1" type="button" onClick={() => console.log('Cancel')}>Cancel</button>
+                        </div>
                     </form>
                     
                     <h5 className="address-info">Address info</h5>
-                    <form className="second-form" onSubmit={handleSubmit}>
-
-                    
+                    <form className="second-form" onSubmit={handleAddressSubmit}>
 
                         <div className="first-address">
-                            <label htmlFor="addressLine1">Address Line 1</label>
+                            <label htmlFor="AddressLine1">Address Line 1</label>
                             <input
                                 type="text"
-                                name="addressLine1"
+                                name="AddressLine1"
                                 value={addressInfo.AddressLine1}
                                 onChange={handleAddressChange}
                             />
                         </div>
                         <div className="second-address">
-                            <label htmlFor="addressLine2">Address Line 2</label>
+                            <label htmlFor="AddressLine2">Address Line 2</label>
                             <input
                                 type="text"
-                                name="addressLine2"
-                                value={addressInfo.AddressLine2 || ''}
+                                name="AddressLine2"
+                                value={addressInfo.AddressLine2}
                                 onChange={handleAddressChange}
                             />
                         </div>
                         <div className="postal">
-                            <label htmlFor="postalCode">Postal Code</label>
+                            <label htmlFor="PostalCode">Postal Code</label>
                             <input
                                 type="text"
-                                name="postalCode"
+                                name="PostalCode"
                                 value={addressInfo.PostalCode}
                                 onChange={handleAddressChange}
                             />
                         </div>
                         <div className="city">
-                            <label htmlFor="city">City</label>
+                            <label htmlFor="City">City</label>
                             <input
                                 type="text"
-                                name="city"
+                                name="City"
                                 value={addressInfo.City}
                                 onChange={handleAddressChange}
                             />
                         </div>
-                        <div className="form-buttons">
-                            <button id="save" className="btn-theme-s" type="submit">Save Changes</button>
-                            <button id="cancel" className="cancel" type="button" onClick={() => console.log('Cancel')}>Cancel</button>
+                        <div className="form-buttons2">
+                            <button id="save2" className="btn-theme-s" type="submit">Save Changes</button>
+                            <button id="cancel2" className="cancel2" type="button" onClick={() => console.log('Cancel')}>Cancel</button>
                         </div>
                     </form>
                     </div>
@@ -352,5 +340,3 @@ const validateNotEmpty = (input: string): boolean => {
             </div>
         );
     };
-    
-    // export default UserComponent;
