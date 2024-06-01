@@ -371,9 +371,9 @@ aside nav .btn.theme-s {
   flex-direction: column;
 }
 
-form{
+.first-form{
   margin-top: 100px;
-  width: 80%;
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-areas:"account-title subtitle" "first last" "email phone" "bio bio";
@@ -381,7 +381,7 @@ form{
 
 }
 
-form .input-group {
+.form .input-group {
 display: grid;
 }
 
@@ -454,6 +454,20 @@ form input {
  grid-area: bio;
 }
 
+/* styling för knappar på first-form */
+/* .form-buttons1 {
+  display: flex;
+  gap: 20px;
+  grid-column: 1;
+  grid-row: 5;
+  margin-top: 10px;
+}
+
+#cancel1 {
+  width: 100px;
+  height: 45px;
+} */
+
 form input::placeholder {
   opacity: 0.4;
 }
@@ -483,6 +497,7 @@ form textarea::placeholder {
 }
 
 .address-info {
+  margin-top: 40px;
   color: #6366F1;
 }
 
@@ -512,15 +527,14 @@ form textarea::placeholder {
   grid-area: city;
 }
 
-.form-buttons {
+.form-buttons2 {
   display: flex;
   gap: 20px;
 }
 
-#cancel {
-  grid-area: cancel;
+#cancel2 {
   width: 100px;
-  height: 50px;
+  height: 45px;
 }
 
 form .btn-theme-s {
