@@ -284,7 +284,7 @@ const validateNotEmpty = (input: string): boolean => {
                                 onChange={handleUserChange}
                             ></textarea>
                         </div>
-                        <div className="from-buttons1">
+                        <div className="form-buttons1">
                             <button id="save1" className="btn-theme-s" type="submit">Save Changes</button>
                             <button id="cancel1" className="cancel1" type="button" onClick={() => console.log('Cancel')}>Cancel</button>
                         </div>
