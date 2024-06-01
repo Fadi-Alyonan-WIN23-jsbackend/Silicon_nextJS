@@ -455,7 +455,7 @@ form input {
 }
 
 /* styling för knappar på first-form */
-/* .form-buttons1 {
+.form-buttons1 {
   display: flex;
   gap: 20px;
   grid-column: 1;
@@ -466,7 +466,7 @@ form input {
 #cancel1 {
   width: 100px;
   height: 45px;
-} */
+}
 
 form input::placeholder {
   opacity: 0.4;
