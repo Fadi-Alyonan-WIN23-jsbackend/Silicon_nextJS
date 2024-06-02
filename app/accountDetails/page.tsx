@@ -217,7 +217,12 @@ const validateNotEmpty = (input: string): boolean => {
                         headers: {
                             'content-type': 'application/json'
                         },
-                        body: JSON.stringify(addressInfo)
+                        body: JSON.stringify({
+                            UserId: userId,
+                            AddressLine1: addressInfo.AddressLine1,
+                            AddressLine2: addressInfo.AddressLine2,
+                            PostalCode: addressInfo.PostalCode,
+                            City: addressInfo.City})
                     });
                     if(res.status === 200) {
                         const result = await res.json();
