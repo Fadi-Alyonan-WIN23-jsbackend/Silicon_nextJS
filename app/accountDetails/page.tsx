@@ -15,6 +15,7 @@ interface UserInfo {
 }
 
 interface AddressInfo {
+    UserId: string;
     AddressLine1: string;
     AddressLine2: string;
     PostalCode: string;
@@ -59,6 +60,7 @@ const validateNotEmpty = (input: string): boolean => {
         });
 
         const [addressInfo, setAddressInfo] = useState<AddressInfo>({ 
+            UserId: '',
             AddressLine1: '', 
             AddressLine2: '', 
             PostalCode: '', 
@@ -130,10 +132,11 @@ const validateNotEmpty = (input: string): boolean => {
                                 setAddressInfo(data);
                               } else if (response.status == 404) {
                                 setAddressInfo({
-                                  AddressLine1: "",
-                                  AddressLine2: "",
-                                  PostalCode: "",
-                                  City: ""
+                                    UserId: userId,
+                                    AddressLine1: "",
+                                    AddressLine2: "",
+                                    PostalCode: "",
+                                    City: ""
                                 });
                             } else {
                                 console.error("Failed to fetch user address information:", response.statusText);
@@ -204,29 +207,36 @@ const validateNotEmpty = (input: string): boolean => {
 
         const handleAddressSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault();
-            try {
-                const res = await fetch(updateAddressUrl, {
-                    method: 'post',
-                    headers: {
-                        'content-type': 'application/json'
-                    },
-                    body: JSON.stringify(addressInfo)
-                });
-                if(res.status === 200) {
-                    const result = await res.json();
-                    setAddressInfo({
-                        AddressLine1: addressInfo.AddressLine1,
-                        AddressLine2: addressInfo.AddressLine2,
-                        PostalCode: addressInfo.PostalCode,
-                        City: addressInfo.City })
-                } else {
-                    
-                    setError('Something went wrong. Try again later');
+            const token = getCookie('Authorization');
+            if (token){
+                const accessToken: any = jwtDecode(token);
+                const userId = accessToken.nameid;
+                try {
+                    const res = await fetch(updateAddressUrl, {
+                        method: 'post',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(addressInfo)
+                    });
+                    if(res.status === 200) {
+                        const result = await res.json();
+                        setAddressInfo({
+                            UserId: userId,
+                            AddressLine1: addressInfo.AddressLine1,
+                            AddressLine2: addressInfo.AddressLine2,
+                            PostalCode: addressInfo.PostalCode,
+                            City: addressInfo.City })
+                    } else {
+                        
+                        setError('Something went wrong. Try again later');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    setError('Something went wrong. Try again later')
                 }
-            } catch (error) {
-                console.error('Error:', error);
-                setError('Something went wrong. Try again later')
             }
+            
         }
     
 
