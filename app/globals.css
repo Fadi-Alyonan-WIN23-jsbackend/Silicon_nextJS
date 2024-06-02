@@ -611,6 +611,10 @@ form .btn-gray {
   display: inline;
 }
 
+#signup .container form .content .input-group {
+  display: grid;
+  grid-template-columns: 1fr;
+}
 
 #signup .container form .btn-theme-s {
   width: 100%;

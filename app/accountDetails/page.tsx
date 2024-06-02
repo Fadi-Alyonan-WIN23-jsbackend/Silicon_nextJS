@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import AccountAside from '@/app/components/account/accountAside'
 import { jwtDecode } from "jwt-decode";
 import { Props } from "@/app/interfaces/accountTyps";
+import { error } from "console";
 
 
 interface UserInfo {
@@ -49,7 +50,7 @@ const validateNotEmpty = (input: string): boolean => {
     };
 
     export default function accountDetails() {
-        const [error, setError] = useState<string>("")
+        const [status, setStatus] = useState({ error: '', success: '' });
         const [userInfo, setUserInfo] = useState<UserInfo>({ 
             UserId: '',
             FirstName: '', 
@@ -193,12 +194,13 @@ const validateNotEmpty = (input: string): boolean => {
                     if(res.status === 200) {
                         const result = await res.json();
                         setUserInfo(result)
+                        setStatus({...status, success: 'User information updated succefully' });
                     } else {
-                        setError('Something went wrong. Try again later')
+                        setStatus({...status, error: 'Something went wrong. Try again later'})
                     }
                 } catch (error) {
                     console.error('Error:', error);
-                    setError('Something went wrong. Try again later')
+                    setStatus( {...status, error: 'Something went wrong. Try again later'})
                 }
             }
             
@@ -226,19 +228,15 @@ const validateNotEmpty = (input: string): boolean => {
                     });
                     if(res.status === 200) {
                         const result = await res.json();
-                        setAddressInfo({
-                            UserId: userId,
-                            AddressLine1: addressInfo.AddressLine1,
-                            AddressLine2: addressInfo.AddressLine2,
-                            PostalCode: addressInfo.PostalCode,
-                            City: addressInfo.City })
+                        setAddressInfo(result)
+                        setStatus({...status, success:'Address information updated successfuly'});
                     } else {
                         
-                        setError('Something went wrong. Try again later');
+                        setStatus({...status, error:'Something went wrong. Try again later'});
                     }
                 } catch (error) {
                     console.error('Error:', error);
-                    setError('Something went wrong. Try again later')
+                    setStatus({...status, error:'Something went wrong. Try again later'});
                 }
             }
             
@@ -253,6 +251,16 @@ const validateNotEmpty = (input: string): boolean => {
                     
                 
                     <div className="account-details-forms">
+                    {status.error && (
+                        <div className="alert alert-danger" role="alert">
+                        {status.error}
+                        </div>
+                    )}
+                    {status.success && (
+                        <div className="alert alert-success" role="alert">
+                        {status.success}
+                        </div>
+                    )}
                     <form className="first-form" onSubmit={handleUserSubmit}>
                     <div className="account-titles">
                         <h2 className="account-title">Account Details</h2>
@@ -308,7 +316,17 @@ const validateNotEmpty = (input: string): boolean => {
                             <button id="cancel1" className="cancel1" type="button" onClick={() => console.log('Cancel')}>Cancel</button>
                         </div>
                     </form>
-                    
+                    <hr />
+                    {status.error && (
+                        <div className="alert alert-danger" role="alert">
+                        {status.error}
+                        </div>
+                    )}
+                    {status.success && (
+                        <div className="alert alert-success" role="alert">
+                        {status.success}
+                        </div>
+                    )}
                     <h5 className="address-info">Address info</h5>
                     <form className="second-form" onSubmit={handleAddressSubmit}>
 
