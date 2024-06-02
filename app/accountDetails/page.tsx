@@ -214,7 +214,11 @@ const validateNotEmpty = (input: string): boolean => {
                 });
                 if(res.status === 200) {
                     const result = await res.json();
-                    setAddressInfo(result)
+                    setAddressInfo({
+                        AddressLine1: addressInfo.AddressLine1,
+                        AddressLine2: addressInfo.AddressLine2,
+                        PostalCode: addressInfo.PostalCode,
+                        City: addressInfo.City })
                 } else {
                     
                     setError('Something went wrong. Try again later');
